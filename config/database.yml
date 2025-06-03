@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: felipe
+  password: 123
+  host: localhost
+  pool: 5
+
+development:
+  <<: *default
+  database: scheduling_system_development
+
+test:
+  <<: *default
+  database: scheduling_system_test
+
+production:
+  <<: *default
+  database: scheduling_system_production
+  username: scheduling_system
+  password: <%= ENV["SCHEDULING_SYSTEM_DATABASE_PASSWORD"] %>

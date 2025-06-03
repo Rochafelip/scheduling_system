@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2025-06-03
+  time: 2025-06-03 18:48:03
+  total_slots: 1
+
+two:
+  date: 2025-06-03
+  time: 2025-06-03 18:48:03
+  total_slots: 1
