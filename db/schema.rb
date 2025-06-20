@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_03_215048) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_20_152430) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -20,7 +20,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_03_215048) do
     t.integer "total_slots", default: 16, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["date", "time"], name: "index_availabilities_on_date_and_time", unique: true
+    t.bigint "battery_id", null: false
+    t.index ["battery_id"], name: "index_availabilities_on_battery_id"
+    t.index ["date", "time", "battery_id"], name: "index_availabilities_on_date_time_battery", unique: true
+  end
+
+  create_table "batteries", force: :cascade do |t|
+    t.string "name"
+    t.integer "capacity"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -31,6 +41,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_03_215048) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "availability_id", null: false
+    t.integer "payment_status", default: 0, null: false
     t.index ["availability_id"], name: "index_reservations_on_availability_id"
     t.index ["user_id"], name: "index_reservations_on_user_id"
   end
@@ -39,12 +50,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_03_215048) do
     t.string "name"
     t.string "cpf"
     t.integer "role", default: 0
-    t.boolean "admin", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cpf"], name: "index_users_on_cpf", unique: true
   end
 
+  add_foreign_key "availabilities", "batteries"
   add_foreign_key "reservations", "availabilities"
   add_foreign_key "reservations", "users"
 end

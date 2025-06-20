@@ -4,6 +4,8 @@ class Reservation < ApplicationRecord
 
   validates :slot_count, numericality: { greater_than: 0 }
   validate :not_exceed_availability
+  validates :slot_count, presence: true
+  enum payment_status: { pendente: 0, pago_local: 1, pago_online: 2 }, _default: :pendente
 
   def not_exceed_availability
     return if availability.blank?
