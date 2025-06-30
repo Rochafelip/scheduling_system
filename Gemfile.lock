@@ -116,6 +116,7 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    holidays (8.8.0)
     hotwire_native_rails (0.4.4)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
@@ -378,6 +379,7 @@ DEPENDENCIES
   browser (~> 6.2)
   capybara
   debug
+  holidays
   hotwire_native_rails (~> 0.4.4)
   importmap-rails
   kamal

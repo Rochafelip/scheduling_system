@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Documentação dos Controllers</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; background-color: #f9f9f9; }
+        h1, h2 { color: #2c3e50; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f2f2f2; }
+        pre { background: #eee; padding: 1rem; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>📘 Documentação dos Controllers</h1>
+    <p>Este documento descreve os controllers públicos e administrativos do sistema de agendamento para kartódromo.</p>
+
+    <h2>🌐 Área Pública</h2>
+    <h3>🔹 UsersController</h3>
+    <table>
+        <tr><th>Ação</th><th>Verbo</th><th>Rota</th><th>Descrição</th></tr>
+        <tr><td>new</td><td>GET</td><td>/users/new</td><td>Exibe o formulário de cadastro</td></tr>
+        <tr><td>create</td><td>POST</td><td>/users</td><td>Cria um novo usuário</td></tr>
+    </table>
+    <pre><code>{
+  "user": {
+    "name": "Nome do usuário",
+    "cpf": "12345678901",
+    "phone": "81999999999"
+  }
+}</code></pre>
+
+    <h3>🔹 ReservationsController</h3>
+    <table>
+        <tr><th>Ação</th><th>Verbo</th><th>Rota</th><th>Descrição</th></tr>
+        <tr><td>new</td><td>GET</td><td>/reservations/new</td><td>Formulário de reserva</td></tr>
+        <tr><td>create</td><td>POST</td><td>/reservations</td><td>Cria uma reserva para o usuário</td></tr>
+        <tr><td>show</td><td>GET</td><td>/reservations/:id</td><td>Exibe os dados da reserva</td></tr>
+    </table>
+    <pre><code>{
+  "user": {
+    "name": "Nome",
+    "cpf": "12345678901",
+    "phone": "81999999999"
+  },
+  "reservation": {
+    "availability_id": 1,
+    "slot_count": 2
+  }
+}</code></pre>
+
+    <h3>🔹 AvailabilitiesController (público)</h3>
+    <table>
+        <tr><th>Ação</th><th>Verbo</th><th>Rota</th><th>Descrição</th></tr>
+        <tr><td>index</td><td>GET</td><td>/availabilities</td><td>Lista horários disponíveis com vagas restantes</td></tr>
+    </table>
+
+    <h2>🛠️ Área Administrativa</h2>
+    <h3>🔹 Admin::DashboardController</h3>
+    <table>
+        <tr><th>Ação</th><th>Verbo</th><th>Rota</th><th>Descrição</th></tr>
+        <tr><td>index</td><td>GET</td><td>/admin</td><td>Painel geral com dados do sistema atual</td></tr>
+    </table>
+
+    <h3>🔹 Admin::BatteriesController</h3>
+    <table>
+        <tr><th>Ação</th><th>Verbo</th><th>Rota</th><th>Descrição</th></tr>
+        <tr><td>index</td><td>GET</td><td>/admin/batteries</td><td>Lista todas as pistas</td></tr>
+        <tr><td>new</td><td>GET</td><td>/admin/batteries/new</td><td>Formulário para nova pista</td></tr>
+        <tr><td>create</td><td>POST</td><td>/admin/batteries</td><td>Cria uma nova pista</td></tr>
+        <tr><td>edit</td><td>GET</td><td>/admin/batteries/:id/edit</td><td>Formulário de edição</td></tr>
+        <tr><td>update</td><td>PATCH</td><td>/admin/batteries/:id</td><td>Atualiza a pista</td></tr>
+    </table>
+
+    <h3>🔹 Admin::AvailabilitiesController</h3>
+    <table>
+        <tr><th>Ação</th><th>Verbo</th><th>Rota</th><th>Descrição</th></tr>
+        <tr><td>index</td><td>GET</td><td>/admin/availabilities</td><td>Lista todos os horários</td></tr>
+        <tr><td>new</td><td>GET</td><td>/admin/availabilities/new</td><td>Formulário de novo horário</td></tr>
+        <tr><td>create</td><td>POST</td><td>/admin/availabilities</td><td>Cria novo horário</td></tr>
+        <tr><td>edit</td><td>GET</td><td>/admin/availabilities/:id/edit</td><td>Formulário de edição</td></tr>
+        <tr><td>update</td><td>PATCH</td><td>/admin/availabilities/:id</td><td>Atualiza horário</td></tr>
+    </table>
+
+    <h3>🔹 Admin::ReservationsController</h3>
+    <table>
+        <tr><th>Ação</th><th>Verbo</th><th>Rota</th><th>Descrição</th></tr>
+        <tr><td>index</td><td>GET</td><td>/admin/reservations</td><td>Lista todas as reservas</td></tr>
+        <tr><td>show</td><td>GET</td><td>/admin/reservations/:id</td><td>Mostra detalhes da reserva</td></tr>
+    </table>
+
+    <h2>🧩 Extras</h2>
+    <p>Todos os controllers públicos podem ser testados sem views, via <code>curl</code> ou <code>rails console</code>.</p>
+    <p>O sistema é extensível para autenticação, filtros, gráficos e integração com Hotwire.</p>
+</body>
+</html>
