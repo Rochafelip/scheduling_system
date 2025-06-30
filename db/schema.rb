@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_28_135102) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_30_212428) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -21,6 +21,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_28_135102) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "battery_id", null: false
+    t.string "kind", default: "normal", null: false
     t.index ["battery_id"], name: "index_availabilities_on_battery_id"
     t.index ["date", "time", "battery_id"], name: "index_availabilities_on_date_time_battery", unique: true
   end
@@ -47,12 +48,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_28_135102) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "cpf"
+    t.string "name", null: false
+    t.string "cpf", null: false
     t.integer "role", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "phone"
+    t.string "phone", null: false
     t.index ["cpf"], name: "index_users_on_cpf", unique: true
   end
 
