@@ -17,12 +17,15 @@ gem "stimulus-rails"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
 gem "tailwindcss-rails"
 
+gem 'faker', '~> 3.4', '>= 3.4.2'
+
+gem 'devise'
 # Gemfile
 gem 'holidays'
 
+gem 'cpf_cnpj'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
-
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
 gem "solid_queue"
@@ -65,3 +68,5 @@ end
 gem "hotwire_native_rails", "~> 0.4.4"
 
 gem "browser", "~> 6.2"
+
+gem "phony_rails", "~> 0.15.0"
