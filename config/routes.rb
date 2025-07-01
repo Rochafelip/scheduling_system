@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   # Rotas da área administrativa
   namespace :admin do
     root "dashboard#index" # /admin
