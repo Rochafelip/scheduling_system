@@ -20,8 +20,10 @@ gem "tailwindcss-rails"
 gem 'faker', '~> 3.4', '>= 3.4.2'
 
 gem 'devise'
-# Gemfile
+
 gem 'holidays'
+
+gem 'pundit'
 
 gem 'cpf_cnpj'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

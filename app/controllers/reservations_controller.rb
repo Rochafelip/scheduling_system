@@ -4,10 +4,12 @@ class ReservationsController < ApplicationController
 
   def new
     @reservation = Reservation.new
+    authorize @reservation
   end
 
   def create
     user = User.find_or_initialize_by(cpf: params[:reservation][:cpf])
+
     user.assign_attributes(
       name: params[:reservation][:name],
       phone: params[:reservation][:phone]
@@ -17,26 +19,26 @@ class ReservationsController < ApplicationController
       availability = Availability.find(reservation_params[:availability_id])
 
       @reservation = user.reservations.build(
-        availability: availability,
-        slot_count: reservation_params[:slot_count]
-        date: availability.date,
-        time: availability.time
+        reservation_params.merge(availability: availability)
       )
+
+      authorize @reservation
 
       if @reservation.save
         redirect_to reservation_path(@reservation), notice: "Reserva criada com sucesso"
       else
         flash.now[:alert] = @reservation.errors.full_messages.to_sentence
-        render :new
+        render :new, status: :unprocessable_entity
       end
     else
       flash.now[:alert] = user.errors.full_messages.to_sentence
-      render :new
+      render :new, status: :unprocessable_entity
+    end
   end
-end
 
   def show
     @reservation = Reservation.find(params[:id])
+    authorize @reservation
   end
 
   private
