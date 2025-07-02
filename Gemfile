@@ -17,7 +17,7 @@ gem "stimulus-rails"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
 gem "tailwindcss-rails"
 
-gem 'faker', '~> 3.4', '>= 3.4.2'
+gem 'faker', '~> 3.5'
 
 gem 'devise'
 
