@@ -1,26 +1,46 @@
 class ReservationPolicy < ApplicationPolicy
-  # Apenas admins podem ver a lista de todas as reservas
   def index?
-    user&.admin?
+    admin_only
   end
 
-  # Admins podem ver qualquer reserva; usuários só podem ver as suas
   def show?
     user&.admin? || record.user_id == user&.id
   end
 
-  # Qualquer visitante pode criar reserva (ex: não precisa estar logado)
   def create?
-    true
+    true  # visitantes também podem criar
   end
 
-  # Apenas admins podem atualizar
   def update?
+    admin_only
+  end
+
+  def destroy?
+    admin_only
+  end
+
+  private
+
+  def admin_only
     user&.admin?
   end
 
-  # Apenas admins podem destruir
-  def destroy?
-    user&.admin?
+  class Scope
+    attr_reader :user, :scope  # adiciona esses leitores
+
+    def initialize(user, scope)
+      @user = user
+      @scope = scope
+    end
+
+    def resolve
+      if user&.admin?
+        scope.all
+      elsif user
+        scope.where(user_id: user.id)
+      else
+        scope.none
+      end
+    end
   end
 end

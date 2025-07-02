@@ -1,27 +1,38 @@
 class AvailabilityPolicy < ApplicationPolicy
   def index?
-    user.admin?
+    admin_only
   end
 
   def new?
-    user.admin?
+    admin_only
   end
 
   def create?
-    user.admin?
+    admin_only
   end
 
   def edit?
-    user.admin?
+    admin_only
   end
 
   def update?
-    user.admin?
+    admin_only
   end
 
-  class Scope < Scope
+  private
+
+  def admin_only
+    user&.admin?
+  end
+
+  class Scope
+    def initialize(user, scope)
+      @user = user
+      @scope = scope
+    end
+
     def resolve
-      user.admin? ? scope.all : scope.none
+      @user&.admin? ? @scope.all : @scope.none
     end
   end
 end

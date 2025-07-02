@@ -33,4 +33,17 @@ class ApplicationPolicy
   def destroy?
     false
   end
+
+  class Scope
+    attr_reader :user, :scope
+
+    def initialize(user, scope)
+      @user = user
+      @scope = scope
+    end
+
+    def resolve
+      scope.none
+    end
+  end
 end

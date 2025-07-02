@@ -1,25 +1,39 @@
 class BatteryPolicy < ApplicationPolicy
   def index?
-    user.admin?
+    admin_only
   end
 
   def new?
-    user.admin?
+    admin_only
   end
 
   def create?
-    user.admin?
+    admin_only
   end
 
   def edit?
-    user.admin?
+    admin_only
   end
 
   def update?
+    admin_only
+  end
+
+  # Permite reaproveitar a lógica
+  private
+
+  def admin_only
     user.admin?
   end
 
-  class Scope < Scope
+  class Scope
+    attr_reader :user, :scope
+
+    def initialize(user, scope)
+      @user = user
+      @scope = scope
+    end
+
     def resolve
       user.admin? ? scope.all : scope.none
     end
